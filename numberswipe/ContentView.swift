@@ -108,6 +108,7 @@ struct ContentView: View {
     }
     
     func reset() {
+        hapticManager.notification(type: .error)
         bgColor = .black
         currentPower = 1
         centerNumber = 2
