@@ -45,14 +45,7 @@ struct ContentView: View {
                             .font(.system(size: g.size.height * 0.6))
                             .scaleEffect(scale)
                             .offset(y: chosenDirection * (g.size.height / 2.0))
-                            .gesture(
-                                DragGesture(minimumDistance: 50)
-                                    .onEnded { val in
-                                        if abs(val.translation.height) > abs(val.translation.width) {
-                                            swipe(val.translation.height < 0, g)
-                                        }
-                                    }
-                            )
+                            
                         Spacer()
                         // Bottom number
                         Text("\(bottomNumber)")
@@ -63,6 +56,14 @@ struct ContentView: View {
                     }
                 }
             }
+            .gesture(
+                DragGesture(minimumDistance: 50)
+                    .onEnded { val in
+                        if abs(val.translation.height) > abs(val.translation.width) && !isGameOver {
+                            swipe(val.translation.height < 0, g)
+                        }
+                    }
+            )
         }
     }
     
