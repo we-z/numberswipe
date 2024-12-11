@@ -15,11 +15,11 @@ struct TempView: View {
                 .aspectRatio(contentMode: .fit)
             Text("2")
                 .foregroundColor(.white)
-                .font(.system(size: 270))
-            Text("n")
-                .foregroundColor(.white)
-                .font(.system(size: 150))
-                .offset(x: 110, y: -110)
+                .font(.system(size: 360))
+//            Text("n")
+//                .foregroundColor(.white)
+//                .font(.system(size: 150))
+//                .offset(x: 110, y: -110)
         }
     }
 }
