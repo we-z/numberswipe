@@ -1,4 +1,7 @@
 import SwiftUI
+import AVFoundation
+
+let hapticManager = HapticManager.instance
 
 struct ContentView: View {
     @State private var currentPower = 1
@@ -73,11 +76,13 @@ struct ContentView: View {
     
     func checkAnswer(correct: Bool) {
         if correct {
+            hapticManager.notification(type: .success)
             flash(color: .blue)
             currentPower += 1
             centerNumber = Int(pow(2, Double(currentPower)))
             setNewNumbers()
         } else {
+            AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) {}
             flash(color: .red)
             isGameOver = true
         }
@@ -118,6 +123,20 @@ struct ContentView: View {
     }
 }
 
+class HapticManager {
+    static let instance = HapticManager()
+    private init() {}
+
+    func notification(type: UINotificationFeedbackGenerator.FeedbackType) {
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(type)
+    }
+
+    func impact(style: UIImpactFeedbackGenerator.FeedbackStyle) {
+        let generator = UIImpactFeedbackGenerator(style: style)
+        generator.impactOccurred()
+    }
+}
 
 #Preview {
     ContentView()

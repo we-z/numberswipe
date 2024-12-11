@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7624EEF72D0970B200A56250 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7624EEF62D0970B200A56250 /* TempView.swift */; };
 		76994B932C6DBA4F003FE6AB /* numberswipeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76994B922C6DBA4F003FE6AB /* numberswipeApp.swift */; };
 		76994B952C6DBA4F003FE6AB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76994B942C6DBA4F003FE6AB /* ContentView.swift */; };
 		76994B972C6DBA50003FE6AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76994B962C6DBA50003FE6AB /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7624EEF62D0970B200A56250 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		76994B8F2C6DBA4F003FE6AB /* PO2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PO2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76994B922C6DBA4F003FE6AB /* numberswipeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = numberswipeApp.swift; sourceTree = "<group>"; };
 		76994B942C6DBA4F003FE6AB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 			children = (
 				76994B922C6DBA4F003FE6AB /* numberswipeApp.swift */,
 				76994B942C6DBA4F003FE6AB /* ContentView.swift */,
+				7624EEF62D0970B200A56250 /* TempView.swift */,
 				76994B962C6DBA50003FE6AB /* Assets.xcassets */,
 				76994B982C6DBA50003FE6AB /* numberswipe.entitlements */,
 				76994B992C6DBA50003FE6AB /* Preview Content */,
@@ -259,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7624EEF72D0970B200A56250 /* TempView.swift in Sources */,
 				76994B952C6DBA4F003FE6AB /* ContentView.swift in Sources */,
 				76994B932C6DBA4F003FE6AB /* numberswipeApp.swift in Sources */,
 			);
