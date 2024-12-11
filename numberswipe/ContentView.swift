@@ -38,6 +38,7 @@ struct ContentView: View {
                     }
                 } else {
                     VStack {
+                        Spacer()
                         // Top number
                         Text("\(topNumber)")
                             .lineLimit(1)
@@ -52,7 +53,7 @@ struct ContentView: View {
                             .foregroundColor(.white)
                             .font(.system(size: g.size.height * 0.6))
                             .scaleEffect(scale)
-                            .offset(y: chosenDirection * (g.size.height / 2.0))
+                            .offset(y: chosenDirection * (g.size.height / 3.0))
                             
                         Spacer()
                         // Bottom number
@@ -62,6 +63,7 @@ struct ContentView: View {
                             .foregroundColor(.white)
                             .font(.system(size: g.size.height * 0.15))
                             .padding(.horizontal, g.size.width * 0.15)
+                        Spacer()
                     }
                 }
             }
