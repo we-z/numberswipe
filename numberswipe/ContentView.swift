@@ -110,7 +110,10 @@ struct ContentView: View {
     
     func setNewNumbers() {
         let correctVal = nextPower()
-        let offset = Int.random(in: 1...max(3,currentPower))
+        var offset = Int.random(in: 1...max(3,currentPower))
+        if correctVal > 100 {
+            offset *= 10
+        }
         let incorrectVal = Bool.random() ? correctVal + offset : max(1, correctVal - offset)
         if Bool.random() {
             topNumber = correctVal
