@@ -34,7 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		76994B8F2C6DBA4F003FE6AB /* numberswipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = numberswipe.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		76994B8F2C6DBA4F003FE6AB /* PO2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PO2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76994B922C6DBA4F003FE6AB /* numberswipeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = numberswipeApp.swift; sourceTree = "<group>"; };
 		76994B942C6DBA4F003FE6AB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		76994B962C6DBA50003FE6AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 		76994B902C6DBA4F003FE6AB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				76994B8F2C6DBA4F003FE6AB /* numberswipe.app */,
+				76994B8F2C6DBA4F003FE6AB /* PO2.app */,
 				76994BA02C6DBA51003FE6AB /* numberswipeTests.xctest */,
 				76994BAA2C6DBA51003FE6AB /* numberswipeUITests.xctest */,
 			);
@@ -132,9 +132,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		76994B8E2C6DBA4F003FE6AB /* numberswipe */ = {
+		76994B8E2C6DBA4F003FE6AB /* PO2 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 76994BB42C6DBA51003FE6AB /* Build configuration list for PBXNativeTarget "numberswipe" */;
+			buildConfigurationList = 76994BB42C6DBA51003FE6AB /* Build configuration list for PBXNativeTarget "PO2" */;
 			buildPhases = (
 				76994B8B2C6DBA4F003FE6AB /* Sources */,
 				76994B8C2C6DBA4F003FE6AB /* Frameworks */,
@@ -144,9 +144,9 @@
 			);
 			dependencies = (
 			);
-			name = numberswipe;
+			name = PO2;
 			productName = numberswipe;
-			productReference = 76994B8F2C6DBA4F003FE6AB /* numberswipe.app */;
+			productReference = 76994B8F2C6DBA4F003FE6AB /* PO2.app */;
 			productType = "com.apple.product-type.application";
 		};
 		76994B9F2C6DBA51003FE6AB /* numberswipeTests */ = {
@@ -221,7 +221,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				76994B8E2C6DBA4F003FE6AB /* numberswipe */,
+				76994B8E2C6DBA4F003FE6AB /* PO2 */,
 				76994B9F2C6DBA51003FE6AB /* numberswipeTests */,
 				76994BA92C6DBA51003FE6AB /* numberswipeUITests */,
 			);
@@ -286,12 +286,12 @@
 /* Begin PBXTargetDependency section */
 		76994BA22C6DBA51003FE6AB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 76994B8E2C6DBA4F003FE6AB /* numberswipe */;
+			target = 76994B8E2C6DBA4F003FE6AB /* PO2 */;
 			targetProxy = 76994BA12C6DBA51003FE6AB /* PBXContainerItemProxy */;
 		};
 		76994BAC2C6DBA51003FE6AB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 76994B8E2C6DBA4F003FE6AB /* numberswipe */;
+			target = 76994B8E2C6DBA4F003FE6AB /* PO2 */;
 			targetProxy = 76994BAB2C6DBA51003FE6AB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -589,7 +589,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		76994BB42C6DBA51003FE6AB /* Build configuration list for PBXNativeTarget "numberswipe" */ = {
+		76994BB42C6DBA51003FE6AB /* Build configuration list for PBXNativeTarget "PO2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				76994BB52C6DBA51003FE6AB /* Debug */,
