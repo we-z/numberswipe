@@ -44,6 +44,7 @@ struct ContentView: View {
                             .minimumScaleFactor(0.01)
                             .foregroundColor(.white)
                             .font(.system(size: g.size.height * 0.15))
+                            .padding(.horizontal, g.size.width * 0.15)
                         Spacer()
                         // Center number
                         Text("\(centerNumber)")
@@ -60,6 +61,7 @@ struct ContentView: View {
                             .minimumScaleFactor(0.01)
                             .foregroundColor(.white)
                             .font(.system(size: g.size.height * 0.15))
+                            .padding(.horizontal, g.size.width * 0.15)
                     }
                 }
             }
