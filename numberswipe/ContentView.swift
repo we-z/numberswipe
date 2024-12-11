@@ -23,11 +23,18 @@ struct ContentView: View {
                             .foregroundColor(.white)
                             .font(.system(size: g.size.width * 0.15))
                             .padding(.bottom, 20)
-                        Button("Reset") {
+                        Button {
                             reset()
+                        } label: {
+                            Text("Reset")
+                                .foregroundColor(.white)
+                                .font(.system(size: g.size.width * 0.07))
+                                .padding()
+                                .padding(.horizontal)
+                                .background(Color.gray.opacity(0.3))
+                                .cornerRadius(g.size.width * 0.03)
                         }
-                        .foregroundColor(.gray)
-                        .font(.system(size: g.size.width * 0.1))
+                        
                     }
                 } else {
                     VStack {
