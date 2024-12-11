@@ -5,9 +5,10 @@ let hapticManager = HapticManager.instance
 
 struct ContentView: View {
     @State private var currentPower = 1
-    @State private var centerNumber = 2
-    @State private var topNumber = 4
-    @State private var bottomNumber = 3
+    @State private var centerNumber = "2"
+    @State private var topNumber = "4"
+    @State private var bottomNumber = "3"
+
     @State private var isGameOver = false
     @State private var chosenDirection: CGFloat = 0
     @State private var scale: CGFloat = 1
@@ -40,7 +41,7 @@ struct ContentView: View {
                     VStack {
                         Spacer()
                         // Top number
-                        Text("\(topNumber)")
+                        Text(insertCommas(topNumber))
                             .lineLimit(1)
                             .minimumScaleFactor(0.01)
                             .foregroundColor(.white)
@@ -48,7 +49,7 @@ struct ContentView: View {
                             .padding(.horizontal, g.size.width * 0.15)
                         Spacer()
                         // Center number
-                        Text("\(centerNumber)")
+                        Text(insertCommas(centerNumber))
                             .minimumScaleFactor(0.01)
                             .foregroundColor(.white)
                             .font(.system(size: g.size.height * 0.6))
@@ -57,7 +58,7 @@ struct ContentView: View {
                             
                         Spacer()
                         // Bottom number
-                        Text("\(bottomNumber)")
+                        Text(insertCommas(bottomNumber))
                             .lineLimit(1)
                             .minimumScaleFactor(0.01)
                             .foregroundColor(.white)
@@ -78,6 +79,22 @@ struct ContentView: View {
         }
     }
     
+    func insertCommas(_ numberString: String) -> String {
+        guard numberString.count > 3 else { return numberString }
+        
+        var result = ""
+        let reversed = Array(numberString.reversed())
+        
+        for (index, digit) in reversed.enumerated() {
+            result.insert(digit, at: result.startIndex)
+            if (index + 1) % 3 == 0 && index < reversed.count - 1 {
+                result.insert(",", at: result.startIndex)
+            }
+        }
+        
+        return result
+    }
+    
     func swipe(_ up: Bool, _ g: GeometryProxy) {
         withAnimation(.easeIn(duration: 0.2)) {
             chosenDirection = up ? -1 : 1
@@ -93,7 +110,7 @@ struct ContentView: View {
             hapticManager.notification(type: .success)
             flash(color: .blue)
             currentPower += 1
-            centerNumber = Int(pow(2, Double(currentPower)))
+            centerNumber = String(format: "%.0f", pow(2, Double(currentPower)))
             setNewNumbers()
         } else {
             AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) {}
@@ -104,17 +121,28 @@ struct ContentView: View {
         scale = 1
     }
     
-    func nextPower() -> Int {
-        return Int(pow(2, Double(currentPower+1)))
+    func nextPower() -> String {
+        return String(format: "%.0f", pow(2, Double(currentPower+1)))
     }
+
     
     func setNewNumbers() {
         let correctVal = nextPower()
-        var offset = Int.random(in: 1...max(3,currentPower))
-        if correctVal > 100 {
-            offset *= 10
+        var offset = Int.random(in: 1...max(3, currentPower))
+        
+        // Attempt to convert correctVal to Int; if it fails, use a fallback
+        let incorrectVal: String
+        if let correctInt = Int(correctVal) {
+            if correctInt > 100 {
+                offset *= 10
+            }
+            let incorrectInt = Bool.random() ? (correctInt + offset) : max(1, correctInt - offset)
+            incorrectVal = String(incorrectInt)
+        } else {
+            // If the number is too large to convert, just pick a fixed distractor
+            incorrectVal = "3"
         }
-        let incorrectVal = Bool.random() ? correctVal + offset : max(1, correctVal - offset)
+        
         if Bool.random() {
             topNumber = correctVal
             bottomNumber = incorrectVal
@@ -124,11 +152,13 @@ struct ContentView: View {
         }
     }
     
+    
+    
     func reset() {
         hapticManager.notification(type: .error)
         bgColor = .black
         currentPower = 1
-        centerNumber = 2
+        centerNumber = "2"
         isGameOver = false
         setNewNumbers()
     }
