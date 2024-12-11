@@ -133,7 +133,9 @@ struct ContentView: View {
     func flash(color: Color) {
         bgColor = color
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            bgColor = .black
+            withAnimation {
+                bgColor = .black
+            }
         }
     }
 }
