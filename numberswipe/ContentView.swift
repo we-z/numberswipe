@@ -33,6 +33,7 @@ struct ContentView: View {
                     VStack {
                         // Top number
                         Text("\(topNumber)")
+                            .lineLimit(1)
                             .minimumScaleFactor(0.01)
                             .foregroundColor(.white)
                             .font(.system(size: g.size.height * 0.15))
@@ -55,6 +56,7 @@ struct ContentView: View {
                         Spacer()
                         // Bottom number
                         Text("\(bottomNumber)")
+                            .lineLimit(1)
                             .minimumScaleFactor(0.01)
                             .foregroundColor(.white)
                             .font(.system(size: g.size.height * 0.15))
