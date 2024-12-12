@@ -20,6 +20,12 @@ struct ContentView: View {
                 bgColor.ignoresSafeArea()
                 if isGameOver {
                     VStack {
+                        Spacer()
+                        Text(insertCommas(centerNumber))
+                            .minimumScaleFactor(0.01)
+                            .foregroundColor(.white)
+                            .font(.system(size: g.size.height * 0.6))
+                        Spacer()
                         Text("Game Over")
                             .foregroundColor(.white)
                             .font(.system(size: g.size.width * 0.15))
