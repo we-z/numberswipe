@@ -114,7 +114,7 @@ struct ContentView: View {
                         Text(insertCommas(topNumber))
                             .lineLimit(1)
                             .minimumScaleFactor(0.01)
-                            .foregroundColor(.white)
+                            .foregroundColor(.gray)
                             .font(.system(size: g.size.height * 0.15))
                             .padding(.horizontal, g.size.width * 0.15)
                         Spacer()
@@ -131,7 +131,7 @@ struct ContentView: View {
                         Text(insertCommas(bottomNumber))
                             .lineLimit(1)
                             .minimumScaleFactor(0.01)
-                            .foregroundColor(.white)
+                            .foregroundColor(.gray)
                             .font(.system(size: g.size.height * 0.15))
                             .padding(.horizontal, g.size.width * 0.15)
                         Spacer()
@@ -200,7 +200,8 @@ struct ContentView: View {
             centerNumber = String(format: "%.0f", pow(2, Double(currentPower)))
             setNewNumbers()
         } else {
-            AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) {}
+//            AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) {}
+            hapticManager.notification(type: .error)
             flash(color: .red)
             isGameOver = true
         }
