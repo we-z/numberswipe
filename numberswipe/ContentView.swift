@@ -5,10 +5,17 @@ let hapticManager = HapticManager.instance
 
 struct ContentView: View {
     @State private var currentPower = 1
-    @State private var centerNumber = "2"
+    @State private var centerNumber = "2" {
+        didSet {
+            // Compare centerNumber with bestScore as strings to handle large numbers
+            if compareLargeNumbers(centerNumber, bestScore) > 0 {
+                bestScore = centerNumber
+            }
+      }
+    }
     @State private var topNumber = "4"
     @State private var bottomNumber = "3"
-
+    @AppStorage("bestScore") var bestScore: String = "0"
     @State private var isGameOver = false
     @State private var chosenDirection: CGFloat = 0
     @State private var scale: CGFloat = 1
@@ -18,30 +25,45 @@ struct ContentView: View {
         GeometryReader { g in
             ZStack {
                 bgColor.ignoresSafeArea()
+                    .background(.gray.opacity(0.0001))
+                    .onTapGesture {
+                        if isGameOver{
+                            reset()
+                        }
+                    }
                 if isGameOver {
                     VStack {
-                        Spacer()
+                        Text("Score")
+                            .font(.system(size: g.size.width * 0.1))
+                            .foregroundColor(.gray)
+                        
                         Text(insertCommas(centerNumber))
+                            .lineLimit(1)
                             .minimumScaleFactor(0.01)
+                            .font(.system(size: g.size.width * 0.1))
                             .foregroundColor(.white)
-                            .font(.system(size: g.size.height * 0.6))
+                        
+                        Text("Best")
+                            .font(.system(size: g.size.width * 0.1))
+                            .foregroundColor(.gray)
+                            .padding(.top, g.size.height * 0.01)
+                        Text(insertCommas(bestScore))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.01)
+                            .font(.system(size: g.size.width * 0.1))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, g.size.width * 0.15)
                         Spacer()
                         Text("Game Over")
                             .foregroundColor(.white)
                             .font(.system(size: g.size.width * 0.15))
-                            .padding(.bottom, 20)
-                        Button {
-                            reset()
-                        } label: {
-                            Text("Reset")
-                                .foregroundColor(.white)
-                                .font(.system(size: g.size.width * 0.07))
-                                .padding()
-                                .padding(.horizontal)
-                                .background(Color.gray.opacity(0.3))
-                                .cornerRadius(g.size.width * 0.03)
-                        }
-                        
+                            .padding(.bottom)
+                            .allowsHitTesting(false)
+                        Text("Tap To Restart")
+                            .foregroundColor(.gray)
+                            .font(.system(size: g.size.width * 0.1))
+                            .padding(.bottom)
+                            .allowsHitTesting(false)
                     }
                 } else {
                     VStack {
@@ -100,6 +122,23 @@ struct ContentView: View {
         
         return result
     }
+    
+    // Helper function to compare large numbers represented as strings
+        func compareLargeNumbers(_ num1: String, _ num2: String) -> Int {
+            // Remove commas if present
+            let cleanNum1 = num1.replacingOccurrences(of: ",", with: "")
+            let cleanNum2 = num2.replacingOccurrences(of: ",", with: "")
+            
+            // Compare lengths first
+            if cleanNum1.count > cleanNum2.count {
+                return 1
+            } else if cleanNum1.count < cleanNum2.count {
+                return -1
+            }
+            
+            // If lengths are same, compare lexicographically
+            return cleanNum1.compare(cleanNum2).rawValue
+        }
     
     func swipe(_ up: Bool, _ g: GeometryProxy) {
         withAnimation(.easeIn(duration: 0.2)) {
