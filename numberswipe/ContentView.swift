@@ -9,14 +9,12 @@ struct ContentView: View {
     @State private var isGameOver = false
     @State private var chosenDirection: CGFloat = 0
     @State private var scale: CGFloat = 1
-    @State private var bgColor = Color.black
     @StateObject private var storeKitManager = StoreKitManager()
 
     var body: some View {
         GeometryReader { g in
             ZStack {
-                bgColor.ignoresSafeArea().background(.gray.opacity(0.0001)).onTapGesture { if isGameOver { reset() } }
-                Color.black.ignoresSafeArea().opacity(0.6)
+                Color.black.ignoresSafeArea().background(.gray.opacity(0.0001)).onTapGesture { if isGameOver { reset() } }
                 if isGameOver {
                     VStack {
                         HStack {
@@ -86,12 +84,12 @@ struct ContentView: View {
 
     func checkAnswer(correct: Bool) {
         if correct {
-            hapticManager.notification(type: .success); flash(color: .blue)
             currentPower += 1; centerNumber = String(format: "%.0f", pow(2, Double(currentPower))); setNewNumbers()
         } else {
-            hapticManager.notification(type: .error); flash(color: .red); isGameOver = true
+            isGameOver = true
         }
-        chosenDirection = 0; scale = 1
+        chosenDirection = 0;
+        withAnimation(.linear(duration: 0.1)) { scale = 1 }
     }
 
     func nextPower() -> String { String(format: "%.0f", pow(2, Double(currentPower+1))) }
@@ -134,14 +132,7 @@ struct ContentView: View {
 
     func reset() {
         impactLight.impactOccurred()
-        bgColor = .black; currentPower = 1; centerNumber = "2"; isGameOver = false; setNewNumbers()
-    }
-
-    func flash(color: Color) {
-        bgColor = color
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            withAnimation { bgColor = .black }
-        }
+        currentPower = 1; centerNumber = "2"; isGameOver = false; setNewNumbers()
     }
 }
 
