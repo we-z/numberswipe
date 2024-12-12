@@ -33,26 +33,35 @@ struct ContentView: View {
                     }
                 if isGameOver {
                     VStack {
-                        Text("Score")
-                            .font(.system(size: g.size.width * 0.1))
-                            .foregroundColor(.gray)
-                        
-                        Text(insertCommas(centerNumber))
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.01)
-                            .font(.system(size: g.size.width * 0.1))
-                            .foregroundColor(.white)
-                        
                         Text("Best")
                             .font(.system(size: g.size.width * 0.1))
                             .foregroundColor(.gray)
-                            .padding(.top, g.size.height * 0.01)
+                            
                         Text(insertCommas(bestScore))
                             .lineLimit(1)
                             .minimumScaleFactor(0.01)
                             .font(.system(size: g.size.width * 0.1))
                             .foregroundColor(.white)
                             .padding(.horizontal, g.size.width * 0.15)
+                        Text("Score")
+                            .font(.system(size: g.size.width * 0.1))
+                            .foregroundColor(.gray)
+                            .padding(.top, g.size.height * 0.01)
+                        Text(insertCommas(centerNumber))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.01)
+                            .font(.system(size: g.size.width * 0.1))
+                            .foregroundColor(.white)
+                        Spacer()
+                        Text("2")
+                            .foregroundColor(.white)
+                            .font(.system(size: g.size.width * 0.3))
+                            .overlay{
+                                Text("\(currentPower)")
+                                    .foregroundColor(.white)
+                                    .font(.system(size: g.size.width * 0.15))
+                                    .offset(x:g.size.width * 0.12, y: -(g.size.width * 0.12))
+                            }
                         Spacer()
                         Text("Game Over")
                             .foregroundColor(.white)
@@ -64,6 +73,7 @@ struct ContentView: View {
                             .font(.system(size: g.size.width * 0.1))
                             .padding(.bottom)
                             .allowsHitTesting(false)
+                        
                     }
                 } else {
                     VStack {
