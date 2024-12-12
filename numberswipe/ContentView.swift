@@ -5,7 +5,7 @@ struct ContentView: View {
     @State private var centerNumber = "2" { didSet { if compareLargeNumbers(centerNumber, bestScore) > 0 { bestScore = centerNumber } } }
     @State private var topNumber = "4"
     @State private var bottomNumber = "3"
-    @AppStorage("bestScore") var bestScore: String = "0"
+    @AppStorage("bestScore") var bestScore: String = "2"
     @State private var isGameOver = false
     @State private var chosenDirection: CGFloat = 0
     @State private var scale: CGFloat = 1
