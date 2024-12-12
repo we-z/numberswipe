@@ -34,6 +34,18 @@ struct ContentView: View {
                     }
                 if isGameOver {
                     VStack {
+                        HStack {
+                            Text("Tip $2")
+                                .bold()
+                                .font(.system(size: g.size.height * 0.025))
+                                .foregroundColor(.white)
+                                .padding(g.size.height * 0.01)
+                                .padding(.horizontal, g.size.height * 0.01)
+                                .background(.blue)
+                                .cornerRadius(g.size.height * 0.01)
+                                .padding()
+                            Spacer()
+                        }
                         Spacer()
                         Text("Best")
                             .font(.system(size: g.size.height * 0.05))
