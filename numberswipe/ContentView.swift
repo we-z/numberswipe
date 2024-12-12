@@ -186,27 +186,46 @@ struct ContentView: View {
     
     func setNewNumbers() {
         let correctVal = nextPower()
-        var offset = Int.random(in: 1...max(3, currentPower))
-        
-        // Attempt to convert correctVal to Int; if it fails, use a fallback
-        let incorrectVal: String
-        if let correctInt = Int(correctVal) {
-            if correctInt > 100 {
-                offset *= 10
-            }
-            let incorrectInt = Bool.random() ? (correctInt + offset) : max(1, correctInt - offset)
-            incorrectVal = String(incorrectInt)
-        } else {
-            // If the number is too large to convert, just pick a fixed distractor
-            incorrectVal = "3"
+        var chars = Array(correctVal)
+        guard chars.count > 2 else { // If number is only one or two digits, just increment or decrement middle as needed
+            let val = Int(correctVal) ?? 2
+            let inc = Bool.random() ? val + 1 : val - 1
+            assignNumbers(correct: correctVal, incorrect: String(max(1, inc)))
+            return
         }
         
+        var differenceMade = false
+        for i in 1..<chars.count-1 {
+            if Bool.random() {
+                let d = Int(String(chars[i]))!
+                let offset = [-1,0,1].randomElement()!
+                if offset != 0 {
+                    var newD = d + offset
+                    if newD < 0 { newD = d+1 }
+                    if newD > 9 { newD = d-1 }
+                    if newD != d {
+                        chars[i] = Character("\(newD)")
+                        differenceMade = true
+                    }
+                }
+            }
+        }
+        if !differenceMade { // ensure at least one difference
+            let i = Int.random(in: 1..<chars.count-1)
+            let d = Int(String(chars[i]))!
+            chars[i] = Character("\(d == 9 ? d-1 : d+1)")
+        }
+        let incorrectVal = String(chars)
+        assignNumbers(correct: correctVal, incorrect: incorrectVal)
+    }
+
+    func assignNumbers(correct: String, incorrect: String) {
         if Bool.random() {
-            topNumber = correctVal
-            bottomNumber = incorrectVal
+            topNumber = correct
+            bottomNumber = incorrect
         } else {
-            topNumber = incorrectVal
-            bottomNumber = correctVal
+            topNumber = incorrect
+            bottomNumber = correct
         }
     }
     
