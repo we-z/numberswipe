@@ -2,6 +2,7 @@ import SwiftUI
 import AVFoundation
 
 let hapticManager = HapticManager.instance
+let impactLight = UIImpactFeedbackGenerator(style: .light)
 
 struct ContentView: View {
     @State private var currentPower = 1
@@ -207,7 +208,7 @@ struct ContentView: View {
     
     
     func reset() {
-        hapticManager.notification(type: .error)
+        impactLight.impactOccurred()
         bgColor = .black
         currentPower = 1
         centerNumber = "2"
