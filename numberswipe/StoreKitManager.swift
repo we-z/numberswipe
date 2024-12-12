@@ -9,7 +9,7 @@ import Foundation
 import StoreKit
 
 class StoreKitManager: ObservableObject {
-    let productID = "tip"
+    let productID = "tip2"
 
     // Purchase the product
     func purchase() async throws -> Transaction? {
