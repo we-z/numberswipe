@@ -9,12 +9,13 @@ struct ContentView: View {
     @State private var isGameOver = false
     @State private var chosenDirection: CGFloat = 0
     @State private var scale: CGFloat = 1
+    @State private var bgColor = Color.black
     @StateObject private var storeKitManager = StoreKitManager()
 
     var body: some View {
         GeometryReader { g in
             ZStack {
-                Color.black.ignoresSafeArea().background(.gray.opacity(0.0001)).onTapGesture { if isGameOver { reset() } }
+                bgColor.ignoresSafeArea().background(.gray.opacity(0.0001)).onTapGesture { if isGameOver { reset() } }
                 if isGameOver {
                     VStack {
                         HStack {
@@ -26,21 +27,23 @@ struct ContentView: View {
                             }
                             Spacer()
                         }
-                        Spacer()
-                        Text("Best").font(.system(size: g.size.height * 0.05)).foregroundColor(.gray).allowsHitTesting(false)
-                        ZStack {
-                            Text("0").font(.system(size: g.size.height * 0.1)).foregroundColor(.clear)
-                            Text(insertCommas(bestScore)).lineLimit(1).minimumScaleFactor(0.01).font(.system(size: g.size.height * 0.08)).foregroundColor(.white).padding(.horizontal, g.size.width * 0.15)
-                        }.allowsHitTesting(false)
-                        Text("Score").font(.system(size: g.size.height * 0.05)).foregroundColor(.gray).allowsHitTesting(false)
-                        ZStack {
-                            Text("0").font(.system(size: g.size.height * 0.1)).foregroundColor(.clear)
-                            Text(insertCommas(centerNumber)).lineLimit(1).minimumScaleFactor(0.01).font(.system(size: g.size.height * 0.08)).foregroundColor(.white).padding(.horizontal, g.size.width * 0.15)
-                        }.allowsHitTesting(false)
-                        Spacer()
-                        Text("Game Over").foregroundColor(.white).font(.system(size: g.size.height * 0.08)).padding(.bottom).allowsHitTesting(false)
-                        Text("Tap To Restart").foregroundColor(.gray).font(.system(size: g.size.height * 0.05)).padding(.bottom).allowsHitTesting(false)
-                        Spacer()
+                        VStack {
+                            Spacer()
+                            Text("Best").font(.system(size: g.size.height * 0.05)).foregroundColor(.gray).allowsHitTesting(false)
+                            ZStack {
+                                Text("0").font(.system(size: g.size.height * 0.1)).foregroundColor(.clear)
+                                Text(insertCommas(bestScore)).lineLimit(1).minimumScaleFactor(0.01).font(.system(size: g.size.height * 0.08)).foregroundColor(.white).padding(.horizontal, g.size.width * 0.15)
+                            }.allowsHitTesting(false)
+                            Text("Score").font(.system(size: g.size.height * 0.05)).foregroundColor(.gray).allowsHitTesting(false)
+                            ZStack {
+                                Text("0").font(.system(size: g.size.height * 0.1)).foregroundColor(.clear)
+                                Text(insertCommas(centerNumber)).lineLimit(1).minimumScaleFactor(0.01).font(.system(size: g.size.height * 0.08)).foregroundColor(.white).padding(.horizontal, g.size.width * 0.15)
+                            }.allowsHitTesting(false)
+                            Spacer()
+                            Text("Game Over").foregroundColor(.white).font(.system(size: g.size.height * 0.08)).padding(.bottom).allowsHitTesting(false)
+                            Text("Tap To Restart").foregroundColor(.gray).font(.system(size: g.size.height * 0.05)).padding(.bottom).allowsHitTesting(false)
+                            Spacer()
+                        }.scaleEffect(scale)
                     }
                 } else {
                     VStack {
@@ -84,12 +87,12 @@ struct ContentView: View {
 
     func checkAnswer(correct: Bool) {
         if correct {
+            hapticManager.notification(type: .success)
             currentPower += 1; centerNumber = String(format: "%.0f", pow(2, Double(currentPower))); setNewNumbers()
         } else {
-            isGameOver = true
+            hapticManager.notification(type: .error); isGameOver = true
         }
-        chosenDirection = 0;
-        withAnimation(.linear(duration: 0.1)) { scale = 1 }
+        chosenDirection = 0; withAnimation(.linear(duration: 0.1)) { scale = 1 }
     }
 
     func nextPower() -> String { String(format: "%.0f", pow(2, Double(currentPower+1))) }
