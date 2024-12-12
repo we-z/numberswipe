@@ -13,7 +13,6 @@ class StoreKitManager: ObservableObject {
 
     // Purchase the product
     func purchase() async throws -> Transaction? {
-        // Fetch the product using the productID
         let products = try await Product.products(for: [productID])
         guard let product = products.first else {
             print("Product not found")
@@ -26,12 +25,9 @@ class StoreKitManager: ObservableObject {
         case let .success(verificationResult):
             switch verificationResult {
             case .verified(let transaction):
-                // Deliver the product to the user
-                // Always finish the transaction
                 await transaction.finish()
                 return transaction
             case .unverified:
-                // Handle failed verification
                 print("Transaction failed verification")
                 return nil
             }

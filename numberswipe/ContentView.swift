@@ -16,6 +16,7 @@ struct ContentView: View {
         GeometryReader { g in
             ZStack {
                 bgColor.ignoresSafeArea().background(.gray.opacity(0.0001)).onTapGesture { if isGameOver { reset() } }
+                Color.black.ignoresSafeArea().opacity(0.6)
                 if isGameOver {
                     VStack {
                         HStack {
