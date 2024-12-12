@@ -44,7 +44,7 @@
 		7624F0772D0ABD4500A56250 /* products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = products.storekit; sourceTree = "<group>"; };
 		7624F0792D0ABE1300A56250 /* StoreKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitManager.swift; sourceTree = "<group>"; };
 		7624F07B2D0B1EBE00A56250 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		76994B8F2C6DBA4F003FE6AB /* PO2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PO2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		76994B8F2C6DBA4F003FE6AB /* X2G.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = X2G.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76994B922C6DBA4F003FE6AB /* numberswipeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = numberswipeApp.swift; sourceTree = "<group>"; };
 		76994B942C6DBA4F003FE6AB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		76994B962C6DBA50003FE6AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -105,7 +105,7 @@
 		76994B902C6DBA4F003FE6AB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				76994B8F2C6DBA4F003FE6AB /* PO2.app */,
+				76994B8F2C6DBA4F003FE6AB /* X2G.app */,
 				76994BA02C6DBA51003FE6AB /* numberswipeTests.xctest */,
 				76994BAA2C6DBA51003FE6AB /* numberswipeUITests.xctest */,
 			);
@@ -156,9 +156,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		76994B8E2C6DBA4F003FE6AB /* PO2 */ = {
+		76994B8E2C6DBA4F003FE6AB /* X2G */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 76994BB42C6DBA51003FE6AB /* Build configuration list for PBXNativeTarget "PO2" */;
+			buildConfigurationList = 76994BB42C6DBA51003FE6AB /* Build configuration list for PBXNativeTarget "X2G" */;
 			buildPhases = (
 				76994B8B2C6DBA4F003FE6AB /* Sources */,
 				76994B8C2C6DBA4F003FE6AB /* Frameworks */,
@@ -168,9 +168,9 @@
 			);
 			dependencies = (
 			);
-			name = PO2;
+			name = X2G;
 			productName = numberswipe;
-			productReference = 76994B8F2C6DBA4F003FE6AB /* PO2.app */;
+			productReference = 76994B8F2C6DBA4F003FE6AB /* X2G.app */;
 			productType = "com.apple.product-type.application";
 		};
 		76994B9F2C6DBA51003FE6AB /* numberswipeTests */ = {
@@ -245,7 +245,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				76994B8E2C6DBA4F003FE6AB /* PO2 */,
+				76994B8E2C6DBA4F003FE6AB /* X2G */,
 				76994B9F2C6DBA51003FE6AB /* numberswipeTests */,
 				76994BA92C6DBA51003FE6AB /* numberswipeUITests */,
 			);
@@ -314,12 +314,12 @@
 /* Begin PBXTargetDependency section */
 		76994BA22C6DBA51003FE6AB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 76994B8E2C6DBA4F003FE6AB /* PO2 */;
+			target = 76994B8E2C6DBA4F003FE6AB /* X2G */;
 			targetProxy = 76994BA12C6DBA51003FE6AB /* PBXContainerItemProxy */;
 		};
 		76994BAC2C6DBA51003FE6AB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 76994B8E2C6DBA4F003FE6AB /* PO2 */;
+			target = 76994B8E2C6DBA4F003FE6AB /* X2G */;
 			targetProxy = 76994BAB2C6DBA51003FE6AB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -621,7 +621,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		76994BB42C6DBA51003FE6AB /* Build configuration list for PBXNativeTarget "PO2" */ = {
+		76994BB42C6DBA51003FE6AB /* Build configuration list for PBXNativeTarget "X2G" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				76994BB52C6DBA51003FE6AB /* Debug */,

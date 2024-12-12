@@ -28,16 +28,16 @@ struct ContentView: View {
                             Spacer()
                         }
                         Spacer()
-                        Text("Best").font(.system(size: g.size.height * 0.05)).foregroundColor(.gray)
+                        Text("Best").font(.system(size: g.size.height * 0.05)).foregroundColor(.gray).allowsHitTesting(false)
                         ZStack {
                             Text("0").font(.system(size: g.size.height * 0.1)).foregroundColor(.clear)
                             Text(insertCommas(bestScore)).lineLimit(1).minimumScaleFactor(0.01).font(.system(size: g.size.height * 0.08)).foregroundColor(.white).padding(.horizontal, g.size.width * 0.15)
-                        }
-                        Text("Score").font(.system(size: g.size.height * 0.05)).foregroundColor(.gray)
+                        }.allowsHitTesting(false)
+                        Text("Score").font(.system(size: g.size.height * 0.05)).foregroundColor(.gray).allowsHitTesting(false)
                         ZStack {
                             Text("0").font(.system(size: g.size.height * 0.1)).foregroundColor(.clear)
                             Text(insertCommas(centerNumber)).lineLimit(1).minimumScaleFactor(0.01).font(.system(size: g.size.height * 0.08)).foregroundColor(.white).padding(.horizontal, g.size.width * 0.15)
-                        }
+                        }.allowsHitTesting(false)
                         Spacer()
                         Text("Game Over").foregroundColor(.white).font(.system(size: g.size.height * 0.08)).padding(.bottom).allowsHitTesting(false)
                         Text("Tap To Restart").foregroundColor(.gray).font(.system(size: g.size.height * 0.05)).padding(.bottom).allowsHitTesting(false)
