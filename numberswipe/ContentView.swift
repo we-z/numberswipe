@@ -22,6 +22,8 @@ struct ContentView: View {
     @State private var scale: CGFloat = 1
     @State private var bgColor = Color.black
     
+    @StateObject private var storeKitManager = StoreKitManager()
+    
     var body: some View {
         GeometryReader { g in
             ZStack {
@@ -35,15 +37,30 @@ struct ContentView: View {
                 if isGameOver {
                     VStack {
                         HStack {
-                            Text("Tip $2")
-                                .bold()
-                                .font(.system(size: g.size.height * 0.025))
-                                .foregroundColor(.white)
-                                .padding(g.size.height * 0.01)
-                                .padding(.horizontal, g.size.height * 0.01)
-                                .background(.blue)
-                                .cornerRadius(g.size.height * 0.01)
-                                .padding()
+                            Button {
+                                impactLight.impactOccurred()
+                                Task {
+                                        do {
+                                            if let transaction = try await storeKitManager.purchase() {
+                                                // Handle successful purchase
+                                                print("Purchase successful: \(transaction)")
+                                            }
+                                        } catch {
+                                            // Handle errors
+                                            print("Purchase failed: \(error)")
+                                        }
+                                    }
+                            } label: {
+                                Text("Tip $2")
+                                    .bold()
+                                    .font(.system(size: g.size.height * 0.025))
+                                    .foregroundColor(.white)
+                                    .padding(g.size.height * 0.01)
+                                    .padding(.horizontal, g.size.height * 0.01)
+                                    .background(.blue)
+                                    .cornerRadius(g.size.height * 0.01)
+                                    .padding()
+                            }
                             Spacer()
                         }
                         Spacer()
