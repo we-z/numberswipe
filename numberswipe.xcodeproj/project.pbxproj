@@ -11,6 +11,7 @@
 		7624F0762D0ABCF400A56250 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7624F0752D0ABCF400A56250 /* StoreKit.framework */; };
 		7624F0782D0ABD4500A56250 /* products.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 7624F0772D0ABD4500A56250 /* products.storekit */; };
 		7624F07A2D0ABE1300A56250 /* StoreKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7624F0792D0ABE1300A56250 /* StoreKitManager.swift */; };
+		7624F07C2D0B1EBE00A56250 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7624F07B2D0B1EBE00A56250 /* Extensions.swift */; };
 		76994B932C6DBA4F003FE6AB /* numberswipeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76994B922C6DBA4F003FE6AB /* numberswipeApp.swift */; };
 		76994B952C6DBA4F003FE6AB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76994B942C6DBA4F003FE6AB /* ContentView.swift */; };
 		76994B972C6DBA50003FE6AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76994B962C6DBA50003FE6AB /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 		7624F0752D0ABCF400A56250 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		7624F0772D0ABD4500A56250 /* products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = products.storekit; sourceTree = "<group>"; };
 		7624F0792D0ABE1300A56250 /* StoreKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitManager.swift; sourceTree = "<group>"; };
+		7624F07B2D0B1EBE00A56250 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		76994B8F2C6DBA4F003FE6AB /* PO2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PO2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76994B922C6DBA4F003FE6AB /* numberswipeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = numberswipeApp.swift; sourceTree = "<group>"; };
 		76994B942C6DBA4F003FE6AB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				76994B922C6DBA4F003FE6AB /* numberswipeApp.swift */,
 				76994B942C6DBA4F003FE6AB /* ContentView.swift */,
 				7624F0792D0ABE1300A56250 /* StoreKitManager.swift */,
+				7624F07B2D0B1EBE00A56250 /* Extensions.swift */,
 				7624F0772D0ABD4500A56250 /* products.storekit */,
 				7624EEF62D0970B200A56250 /* TempView.swift */,
 				76994B962C6DBA50003FE6AB /* Assets.xcassets */,
@@ -281,6 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7624F07C2D0B1EBE00A56250 /* Extensions.swift in Sources */,
 				7624F07A2D0ABE1300A56250 /* StoreKitManager.swift in Sources */,
 				7624EEF72D0970B200A56250 /* TempView.swift in Sources */,
 				76994B952C6DBA4F003FE6AB /* ContentView.swift in Sources */,
