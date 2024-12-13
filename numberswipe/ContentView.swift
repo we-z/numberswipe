@@ -102,7 +102,7 @@ struct ContentView: View {
         var chars = Array(correctVal)
         guard chars.count > 2 else {
             let val = Int(correctVal) ?? 2
-            let inc = Bool.random() ? val + 1 : val - 1
+            let inc = Bool.random() ? val + 2 : val - 2
             assignNumbers(correct: correctVal, incorrect: String(max(1, inc)))
             return
         }
