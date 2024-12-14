@@ -59,44 +59,46 @@ struct ContentView: View {
                 }
             }
             .gesture(
-                            DragGesture(minimumDistance: 0)
-                                .onChanged { val in
-                                    // val.translation.height is how far the user has dragged vertically
-                                    let drag = val.translation.height
-                                    
-                                    // Offset direction: negative for up, positive for down.
-                                    // This fraction helps ensure the offset doesn't get too large.
-                                    // For example, dividing by 200 can be tuned as needed.
-                                    chosenDirection = drag / (g.size.height / 3)
-                                    
-                                    // Scale: You can define any function that suits your preference.
-                                    // E.g. shrink slightly as the user drags away from center.
-                                    let dragDistance = abs(drag)
-                                    let optionDistance: CGFloat = g.size.height / 4 // how fast it shrinks
-                                    
-                                    
-                                    // Make sure it doesn't shrink below some minimum (e.g. 0.8).
-                                    if !isGameOver {
-                                        scale = max((optionDistance - dragDistance) / optionDistance, 0.001)
-                                    }
-                                }
-                                .onEnded { val in
-                                    // If the user has swiped far enough in one direction, evaluate their choice.
-                                    // Else, snap back to original size and position without checking the answer.
-                                    let drag = val.translation.height
-                                    
-                                    // Decide whether we consider it a valid swipe:
-                                    if abs(drag) > 21, !isGameOver {
-                                        swipe(drag < 0, g)
-                                    } else {
-                                        // Snap back
-                                        withAnimation(.linear(duration: 0.1)) {
-                                            chosenDirection = 0
-                                            scale = 1
-                                        }
-                                    }
-                                }
-                        )
+                DragGesture(minimumDistance: 0)
+                    .onChanged { val in
+                        // val.translation.height is how far the user has dragged vertically
+                        let drag = val.translation.height
+                        let optionDistance: CGFloat = g.size.height / 4
+                        
+                        // Offset direction: negative for up, positive for down.
+                        // This fraction helps ensure the offset doesn't get too large.
+                        // For example, dividing by 200 can be tuned as needed.
+                        if abs(drag) < optionDistance  {
+                            chosenDirection = drag / (g.size.height / 3)
+                        }
+                        // Scale: You can define any function that suits your preference.
+                        // E.g. shrink slightly as the user drags away from center.
+                        let dragDistance = abs(drag)
+                        
+                        
+                        
+                        // Make sure it doesn't shrink below some minimum (e.g. 0.8).
+                        if !isGameOver {
+                            scale = max((optionDistance - dragDistance) / optionDistance, 0.1)
+                        }
+                    }
+                    .onEnded { val in
+                        // If the user has swiped far enough in one direction, evaluate their choice.
+                        // Else, snap back to original size and position without checking the answer.
+                        let drag = val.translation.height
+                        
+                        // Decide whether we consider it a valid swipe:
+                        if abs(drag) > 21, !isGameOver {
+                            swipe(drag < 0, g)
+                        } else {
+                            // Snap back
+                            withAnimation(.linear(duration: 0.1)) {
+                                chosenDirection = 0
+                                scale = 1
+                            }
+                        }
+                    }
+            )
         }
         .onChange(of: scenePhase) { _ in
             withAnimation(.linear(duration: 0.1)) {
