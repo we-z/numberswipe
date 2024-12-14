@@ -15,7 +15,7 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { g in
             ZStack {
-                bgColor.ignoresSafeArea().background(.gray.opacity(0.0001)).onTapGesture { if isGameOver { reset() } }
+                bgColor.ignoresSafeArea().background(.gray.opacity(0.0001)).onTapGesture { if isGameOver { reset() } else { shakeCenterNumber()} }
                 if isGameOver {
                     VStack {
                         HStack {
@@ -48,16 +48,54 @@ struct ContentView: View {
                 } else {
                     VStack {
                         Spacer()
-                        Text(insertCommas(topNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(.gray).font(.system(size: g.size.height * 0.15)).padding(.horizontal, g.size.width * 0.15)
+                        Text(insertCommas(topNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(.gray).font(.system(size: g.size.height * 0.15)).padding(.horizontal, g.size.width * 0.15).allowsHitTesting(false)
                         Spacer()
-                        Text(insertCommas(centerNumber)).minimumScaleFactor(0.01).foregroundColor(.white).font(.system(size: g.size.height * 0.6)).scaleEffect(scale).offset(y: chosenDirection * (g.size.height / 3.0))
+                        Text(insertCommas(centerNumber)).minimumScaleFactor(0.01).foregroundColor(.white).font(.system(size: g.size.height * 0.6)).scaleEffect(scale).offset(y: chosenDirection * (g.size.height / 3.0)).allowsHitTesting(false)
                         Spacer()
-                        Text(insertCommas(bottomNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(.gray).font(.system(size: g.size.height * 0.15)).padding(.horizontal, g.size.width * 0.15)
+                        Text(insertCommas(bottomNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(.gray).font(.system(size: g.size.height * 0.15)).padding(.horizontal, g.size.width * 0.15).allowsHitTesting(false)
                         Spacer()
                     }
                 }
             }
-            .gesture(DragGesture(minimumDistance: 21).onEnded { val in if abs(val.translation.height) > abs(val.translation.width) && !isGameOver { swipe(val.translation.height < 0, g) } })
+            .gesture(
+                            DragGesture(minimumDistance: 0)
+                                .onChanged { val in
+                                    // val.translation.height is how far the user has dragged vertically
+                                    let drag = val.translation.height
+                                    
+                                    // Offset direction: negative for up, positive for down.
+                                    // This fraction helps ensure the offset doesn't get too large.
+                                    // For example, dividing by 200 can be tuned as needed.
+                                    chosenDirection = drag / (g.size.height / 3.6)
+                                    
+                                    // Scale: You can define any function that suits your preference.
+                                    // E.g. shrink slightly as the user drags away from center.
+                                    let dragDistance = abs(drag)
+                                    let optionDistance: CGFloat = g.size.height / 4 // how fast it shrinks
+                                    
+                                    
+                                    // Make sure it doesn't shrink below some minimum (e.g. 0.8).
+                                    if !isGameOver {
+                                        scale = max((optionDistance - dragDistance) / optionDistance, 0.001)
+                                    }
+                                }
+                                .onEnded { val in
+                                    // If the user has swiped far enough in one direction, evaluate their choice.
+                                    // Else, snap back to original size and position without checking the answer.
+                                    let drag = val.translation.height
+                                    
+                                    // Decide whether we consider it a valid swipe:
+                                    if abs(drag) > 21, !isGameOver {
+                                        swipe(drag < 0, g)
+                                    } else {
+                                        // Snap back
+                                        withAnimation(.linear(duration: 0.1)) {
+                                            chosenDirection = 0
+                                            scale = 1
+                                        }
+                                    }
+                                }
+                        )
         }
     }
 
@@ -82,6 +120,22 @@ struct ContentView: View {
         withAnimation(.easeIn(duration: 0.2)) { chosenDirection = up ? -1 : 1; scale = 0.0 }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             checkAnswer(correct: (up && topNumber == nextPower()) || (!up && bottomNumber == nextPower()))
+        }
+    }
+    
+    func shakeCenterNumber() {
+        withAnimation(.linear(duration: 0.1)) {
+            chosenDirection = -0.1
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            withAnimation(.linear(duration: 0.1)) {
+                chosenDirection = 0.1
+            }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            withAnimation(.linear(duration: 0.1)) {
+                chosenDirection = 0
+            }
         }
     }
 
