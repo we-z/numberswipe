@@ -68,7 +68,7 @@ struct ContentView: View {
                         // Offset direction: negative for up, positive for down.
                         // This fraction helps ensure the offset doesn't get too large.
                         // For example, dividing by 200 can be tuned as needed.
-                        if abs(drag) < optionDistance  {
+                        if abs(drag) < optionDistance / 1.1  {
                             chosenDirection = drag / (g.size.height / 3)
                         }
                         // Scale: You can define any function that suits your preference.
