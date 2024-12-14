@@ -75,7 +75,7 @@ struct ContentView: View {
                         // E.g. shrink slightly as the user drags away from center.
                         let dragDistance = abs(drag)
                         
-                        
+                        if drag == 0 {impactLight.impactOccurred()}
                         
                         // Make sure it doesn't shrink below some minimum (e.g. 0.8).
                         if !isGameOver {
