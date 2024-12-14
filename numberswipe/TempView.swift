@@ -13,9 +13,9 @@ struct TempView: View {
             Color.white
             Color.black
                 .aspectRatio(contentMode: .fit)
-            Text("2")
+            Text("X2G")
                 .foregroundColor(.white)
-                .font(.system(size: 360))
+                .font(.system(size: 200))
 //            Text("n")
 //                .foregroundColor(.white)
 //                .font(.system(size: 150))
