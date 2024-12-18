@@ -155,12 +155,12 @@ struct ContentView: View {
             currentPower += 1; centerNumber = String(format: "%.0f", pow(2, Double(currentPower)))
             
             if chosenDirection > 0 {
-                withAnimation(.linear(duration: 0.1)) { bottomOptionScale = 1.5 }
+                withAnimation(.linear(duration: 0.1)) { bottomOptionScale = 1.7 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     withAnimation(.linear(duration: 0.1)) { bottomOptionScale = 1.0 }
                 }
             } else {
-                withAnimation(.linear(duration: 0.1)) { topOptionScale = 1.5 }
+                withAnimation(.linear(duration: 0.1)) { topOptionScale = 1.7 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     withAnimation(.linear(duration: 0.1)) { topOptionScale = 1.0 }
                 }
