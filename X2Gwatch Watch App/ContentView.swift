@@ -1,5 +1,11 @@
+//
+//  ContentView.swift
+//  X2Gwatch Watch App
+//
+//  Created by Wheezy Capowdis on 12/17/24.
+//
+
 import SwiftUI
-import AVFoundation
 
 struct ContentView: View {
     @State private var currentPower = 1
@@ -12,11 +18,8 @@ struct ContentView: View {
     @State private var scale: CGFloat = 1
     @State private var topOptionScale: CGFloat = 1
     @State private var bottomOptionScale: CGFloat = 1
-    @State private var topOptionOffset: CGFloat = 0
-    @State private var bottomOptionOffset: CGFloat = 0
-    @State private var swiping = false
     @State private var bgColor = Color.black
-    @StateObject private var storeKitManager = StoreKitManager()
+//    @StateObject private var storeKitManager = StoreKitManager()
     @Environment(\.scenePhase) var scenePhase
 
     var body: some View {
@@ -25,15 +28,15 @@ struct ContentView: View {
                 bgColor.ignoresSafeArea().background(.gray.opacity(0.0001)).onTapGesture { if isGameOver { reset() } else { shakeCenterNumber()} }
                 if isGameOver {
                     VStack {
-                        HStack {
-                            Button {
-                                impactLight.impactOccurred()
-                                Task { do { if let transaction = try await storeKitManager.purchase() { print("Purchase successful: \(transaction)") } } catch { print("Purchase failed: \(error)") } }
-                            } label: {
-                                Text("Tip $2").bold().font(.system(size: g.size.height * 0.025)).foregroundColor(.white).padding(g.size.height * 0.01).padding(.horizontal, g.size.height * 0.01).background(.blue).cornerRadius(g.size.height * 0.01).padding()
-                            }
-                            Spacer()
-                        }
+//                        HStack {
+//                            Button {
+//                                impactLight.impactOccurred()
+//                                Task { do { if let transaction = try await storeKitManager.purchase() { print("Purchase successful: \(transaction)") } } catch { print("Purchase failed: \(error)") } }
+//                            } label: {
+//                                Text("Tip $2").bold().font(.system(size: g.size.height * 0.025)).foregroundColor(.white).padding(g.size.height * 0.01).padding(.horizontal, g.size.height * 0.01).background(.blue).cornerRadius(g.size.height * 0.01).padding()
+//                            }
+//                            Spacer()
+//                        }
                         VStack {
                             Spacer()
                             Text("Best").font(.system(size: g.size.height * 0.05)).foregroundColor(.gray).allowsHitTesting(false)
@@ -52,16 +55,18 @@ struct ContentView: View {
                             Spacer()
                         }.scaleEffect(scale)
                     }
+                    .ignoresSafeArea()
                 } else {
                     VStack {
                         Spacer()
-                        Text(insertCommas(topNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(.gray).font(.system(size: g.size.height * 0.15)).scaleEffect(topOptionScale).offset(y: topOptionOffset * (g.size.height / 21.0)).padding(.horizontal, g.size.width * 0.15).allowsHitTesting(false)
+                        Text(insertCommas(topNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(.gray).font(.system(size: g.size.height * 0.15)).scaleEffect(topOptionScale).padding(.horizontal, g.size.width * 0.15).allowsHitTesting(false)
                         Spacer()
                         Text(insertCommas(centerNumber)).minimumScaleFactor(0.01).foregroundColor(.white).font(.system(size: g.size.height * 0.6)).scaleEffect(scale).offset(y: chosenDirection * (g.size.height / 3.0)).allowsHitTesting(false)
                         Spacer()
-                        Text(insertCommas(bottomNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(.gray).font(.system(size: g.size.height * 0.15)).scaleEffect(bottomOptionScale).offset(y: bottomOptionOffset * (g.size.height / 21.0)).padding(.horizontal, g.size.width * 0.15).allowsHitTesting(false)
+                        Text(insertCommas(bottomNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(.gray).font(.system(size: g.size.height * 0.15)).scaleEffect(bottomOptionScale).padding(.horizontal, g.size.width * 0.15).allowsHitTesting(false)
                         Spacer()
                     }
+                    .ignoresSafeArea()
                 }
             }
             .gesture(
@@ -104,7 +109,6 @@ struct ContentView: View {
                         }
                     }
             )
-            .allowsHitTesting(!swiping)
         }
         .onChange(of: scenePhase) { _ in
             withAnimation(.linear(duration: 0.1)) {
@@ -132,7 +136,6 @@ struct ContentView: View {
     }
 
     func swipe(_ up: Bool, _ g: GeometryProxy) {
-        swiping = true
         withAnimation(.easeIn(duration: 0.2)) { chosenDirection = up ? -1 : 1; scale = 0.0 }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             checkAnswer(correct: (up && topNumber == nextPower()) || (!up && bottomNumber == nextPower()))
@@ -157,7 +160,7 @@ struct ContentView: View {
 
     func checkAnswer(correct: Bool) {
         if correct {
-            hapticManager.notification(type: .success)
+//            hapticManager.notification(type: .success)
             currentPower += 1
             withAnimation {
                 centerNumber = String(format: "%.0f", pow(2, Double(currentPower)))
@@ -176,34 +179,14 @@ struct ContentView: View {
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 setNewNumbers()
-                withAnimation(.linear(duration: 0.2)) { chosenDirection = 0; scale = 1; swiping = false}
+                withAnimation(.linear(duration: 0.1)) { scale = 1 }
             }
         } else {
-            AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) {}
-            if chosenDirection > 0 {
-                withAnimation(.linear(duration: 0.1)) { bottomOptionOffset = -1 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    withAnimation(.linear(duration: 0.1)) { bottomOptionOffset = 1 }
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    withAnimation(.linear(duration: 0.1)) { bottomOptionOffset = 0 }
-                }
-            } else {
-                withAnimation(.linear(duration: 0.1)) { topOptionOffset = -1 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    withAnimation(.linear(duration: 0.1)) { topOptionOffset = 1 }
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    withAnimation(.linear(duration: 0.1)) { topOptionOffset = 0 }
-                }
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                hapticManager.notification(type: .error); isGameOver = true; swiping = false
-                withAnimation(.linear(duration: 0.1)) { chosenDirection = 0; scale = 1 }
-            }
+//            hapticManager.notification(type: .error)
+            isGameOver = true
+            withAnimation(.linear(duration: 0.1)) { scale = 1 }
         }
-        
+        chosenDirection = 0;
     }
 
     func nextPower() -> String { String(format: "%.0f", pow(2, Double(currentPower+1))) }
@@ -245,9 +228,12 @@ struct ContentView: View {
     }
 
     func reset() {
-        impactLight.impactOccurred()
+//        impactLight.impactOccurred()
         currentPower = 1; centerNumber = "2"; isGameOver = false; setNewNumbers()
     }
 }
 
-#Preview { ContentView() }
+
+#Preview {
+    ContentView()
+}
