@@ -152,7 +152,10 @@ struct ContentView: View {
     func checkAnswer(correct: Bool) {
         if correct {
             hapticManager.notification(type: .success)
-            currentPower += 1; centerNumber = String(format: "%.0f", pow(2, Double(currentPower)))
+            currentPower += 1
+            withAnimation {
+                centerNumber = String(format: "%.0f", pow(2, Double(currentPower)))
+            }
             
             if chosenDirection > 0 {
                 withAnimation(.linear(duration: 0.1)) { bottomOptionScale = 1.7 }
