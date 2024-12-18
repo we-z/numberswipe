@@ -9,6 +9,8 @@ struct ContentView: View {
     @State private var isGameOver = false
     @State private var chosenDirection: CGFloat = 0
     @State private var scale: CGFloat = 1
+    @State private var topOptionScale: CGFloat = 1
+    @State private var bottomOptionScale: CGFloat = 1
     @State private var bgColor = Color.black
     @StateObject private var storeKitManager = StoreKitManager()
     @Environment(\.scenePhase) var scenePhase
@@ -49,11 +51,11 @@ struct ContentView: View {
                 } else {
                     VStack {
                         Spacer()
-                        Text(insertCommas(topNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(.gray).font(.system(size: g.size.height * 0.15)).padding(.horizontal, g.size.width * 0.15).allowsHitTesting(false)
+                        Text(insertCommas(topNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(.gray).font(.system(size: g.size.height * 0.15)).scaleEffect(topOptionScale).padding(.horizontal, g.size.width * 0.15).allowsHitTesting(false)
                         Spacer()
                         Text(insertCommas(centerNumber)).minimumScaleFactor(0.01).foregroundColor(.white).font(.system(size: g.size.height * 0.6)).scaleEffect(scale).offset(y: chosenDirection * (g.size.height / 3.0)).allowsHitTesting(false)
                         Spacer()
-                        Text(insertCommas(bottomNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(.gray).font(.system(size: g.size.height * 0.15)).padding(.horizontal, g.size.width * 0.15).allowsHitTesting(false)
+                        Text(insertCommas(bottomNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(.gray).font(.system(size: g.size.height * 0.15)).scaleEffect(bottomOptionScale).padding(.horizontal, g.size.width * 0.15).allowsHitTesting(false)
                         Spacer()
                     }
                 }
@@ -75,7 +77,6 @@ struct ContentView: View {
                         // E.g. shrink slightly as the user drags away from center.
                         let dragDistance = abs(drag)
                         
-                        if drag == 0 {impactLight.impactOccurred()}
                         
                         // Make sure it doesn't shrink below some minimum (e.g. 0.8).
                         if !isGameOver {
@@ -151,11 +152,28 @@ struct ContentView: View {
     func checkAnswer(correct: Bool) {
         if correct {
             hapticManager.notification(type: .success)
-            currentPower += 1; centerNumber = String(format: "%.0f", pow(2, Double(currentPower))); setNewNumbers()
+            currentPower += 1; centerNumber = String(format: "%.0f", pow(2, Double(currentPower)))
+            
+            if chosenDirection > 0 {
+                withAnimation(.linear(duration: 0.1)) { bottomOptionScale = 1.5 }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    withAnimation(.linear(duration: 0.1)) { bottomOptionScale = 1.0 }
+                }
+            } else {
+                withAnimation(.linear(duration: 0.1)) { topOptionScale = 1.5 }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    withAnimation(.linear(duration: 0.1)) { topOptionScale = 1.0 }
+                }
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                setNewNumbers()
+                withAnimation(.linear(duration: 0.1)) { scale = 1 }
+            }
         } else {
             hapticManager.notification(type: .error); isGameOver = true
+            withAnimation(.linear(duration: 0.1)) { scale = 1 }
         }
-        chosenDirection = 0; withAnimation(.linear(duration: 0.1)) { scale = 1 }
+        chosenDirection = 0;
     }
 
     func nextPower() -> String { String(format: "%.0f", pow(2, Double(currentPower+1))) }

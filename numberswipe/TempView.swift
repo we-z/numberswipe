@@ -1,9 +1,4 @@
-//
-//  TempView.swift
-//  PO2
-//
-//  Created by Wheezy Capowdis on 12/10/24.
-//
+
 
 import SwiftUI
 
@@ -13,13 +8,13 @@ struct TempView: View {
             Color.white
             Color.black
                 .aspectRatio(contentMode: .fit)
-            Text("X2G")
+            Text("2")
                 .foregroundColor(.white)
-                .font(.system(size: 200))
-//            Text("n")
-//                .foregroundColor(.white)
-//                .font(.system(size: 150))
-//                .offset(x: 110, y: -110)
+                .font(.system(size: 300))
+            Text("n")
+                .foregroundColor(.white)
+                .font(.system(size: 150))
+                .offset(x: 120, y: -90)
         }
     }
 }
