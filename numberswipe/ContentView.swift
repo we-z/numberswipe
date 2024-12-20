@@ -14,6 +14,8 @@ struct ContentView: View {
     @State private var bottomOptionScale: CGFloat = 1
     @State private var topOptionOffset: CGFloat = 0
     @State private var bottomOptionOffset: CGFloat = 0
+    @State private var topOptionColor: Color = .gray
+    @State private var bottomOptionColor: Color = .gray
     @State private var swiping = false
     @State private var bgColor = Color.black
     @StateObject private var storeKitManager = StoreKitManager()
@@ -55,11 +57,11 @@ struct ContentView: View {
                 } else {
                     VStack {
                         Spacer()
-                        Text(insertCommas(topNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(.gray).font(.system(size: g.size.height * 0.15)).scaleEffect(topOptionScale).offset(y: topOptionOffset * (g.size.height / 21.0)).padding(.horizontal, g.size.width * 0.15).allowsHitTesting(false)
+                        Text(insertCommas(topNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(topOptionColor).font(.system(size: g.size.height * 0.15)).scaleEffect(topOptionScale).offset(y: topOptionOffset * (g.size.height / 21.0)).padding(.horizontal, g.size.width * 0.15).allowsHitTesting(false)
                         Spacer()
                         Text(insertCommas(centerNumber)).minimumScaleFactor(0.01).lineLimit(1).frame(maxWidth: g.size.width).fixedSize(horizontal: false, vertical: false).foregroundColor(.white).font(.system(size: g.size.height * 0.6)).scaleEffect(scale).offset(y: chosenDirection * (g.size.height / 3.0)).allowsHitTesting(false)
                         Spacer()
-                        Text(insertCommas(bottomNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(.gray).font(.system(size: g.size.height * 0.15)).scaleEffect(bottomOptionScale).offset(y: bottomOptionOffset * (g.size.height / 21.0)).padding(.horizontal, g.size.width * 0.15).allowsHitTesting(false)
+                        Text(insertCommas(bottomNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(bottomOptionColor).font(.system(size: g.size.height * 0.15)).scaleEffect(bottomOptionScale).offset(y: bottomOptionOffset * (g.size.height / 21.0)).padding(.horizontal, g.size.width * 0.15).allowsHitTesting(false)
                         Spacer()
                     }
                 }
@@ -164,14 +166,14 @@ struct ContentView: View {
             }
             
             if chosenDirection > 0 {
-                withAnimation(.linear(duration: 0.1)) { bottomOptionScale = 1.7 }
+                withAnimation(.linear(duration: 0.1)) { bottomOptionScale = 1.7; bottomOptionColor = .white }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    withAnimation(.linear(duration: 0.1)) { bottomOptionScale = 1.0 }
+                    withAnimation(.linear(duration: 0.1)) { bottomOptionScale = 1.0; bottomOptionColor = .gray}
                 }
             } else {
-                withAnimation(.linear(duration: 0.1)) { topOptionScale = 1.7 }
+                withAnimation(.linear(duration: 0.1)) { topOptionScale = 1.7; topOptionColor = .white}
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    withAnimation(.linear(duration: 0.1)) { topOptionScale = 1.0 }
+                    withAnimation(.linear(duration: 0.1)) { topOptionScale = 1.0; topOptionColor = .gray }
                 }
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
