@@ -35,6 +35,11 @@ struct ContentView: View {
                                 Text("Tip $2").bold().font(.system(size: g.size.height * 0.025)).foregroundColor(.white).padding(g.size.height * 0.01).padding(.horizontal, g.size.height * 0.01).background(.blue).cornerRadius(g.size.height * 0.01).padding()
                             }
                             Spacer()
+                            Button {
+                                impactLight.impactOccurred()
+                            } label: {
+                                Text("Flex").bold().font(.system(size: g.size.height * 0.025)).foregroundColor(.white).padding(g.size.height * 0.01).padding(.horizontal, g.size.height * 0.02).background(.gray.opacity(0.3)).cornerRadius(g.size.height * 0.01).padding()
+                            }
                         }
                         VStack {
                             Spacer()
