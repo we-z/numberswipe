@@ -57,7 +57,7 @@ struct ContentView: View {
                         Spacer()
                         Text(insertCommas(topNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(.gray).font(.system(size: g.size.height * 0.15)).scaleEffect(topOptionScale).offset(y: topOptionOffset * (g.size.height / 21.0)).padding(.horizontal, g.size.width * 0.15).allowsHitTesting(false)
                         Spacer()
-                        Text(insertCommas(centerNumber)).minimumScaleFactor(0.01).foregroundColor(.white).font(.system(size: g.size.height * 0.6)).scaleEffect(scale).offset(y: chosenDirection * (g.size.height / 3.0)).allowsHitTesting(false)
+                        Text(insertCommas(centerNumber)).minimumScaleFactor(0.01).lineLimit(1).frame(maxWidth: g.size.width).fixedSize(horizontal: false, vertical: false).foregroundColor(.white).font(.system(size: g.size.height * 0.6)).scaleEffect(scale).offset(y: chosenDirection * (g.size.height / 3.0)).allowsHitTesting(false)
                         Spacer()
                         Text(insertCommas(bottomNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(.gray).font(.system(size: g.size.height * 0.15)).scaleEffect(bottomOptionScale).offset(y: bottomOptionOffset * (g.size.height / 21.0)).padding(.horizontal, g.size.width * 0.15).allowsHitTesting(false)
                         Spacer()
@@ -133,7 +133,7 @@ struct ContentView: View {
 
     func swipe(_ up: Bool, _ g: GeometryProxy) {
         swiping = true
-        withAnimation(.easeIn(duration: 0.2)) { chosenDirection = up ? -1 : 1; scale = 0.0 }
+        withAnimation(.spring(duration: 0.2)) { chosenDirection = up ? -1 : 1; scale = 0.0 }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             checkAnswer(correct: (up && topNumber == nextPower()) || (!up && bottomNumber == nextPower()))
         }
