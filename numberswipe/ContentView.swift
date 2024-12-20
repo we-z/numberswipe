@@ -57,11 +57,11 @@ struct ContentView: View {
                 } else {
                     VStack {
                         Spacer()
-                        Text(insertCommas(topNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(topOptionColor).font(.system(size: g.size.height * 0.15)).scaleEffect(topOptionScale).offset(y: topOptionOffset * (g.size.height / 21.0)).padding(.horizontal, g.size.width * 0.15).allowsHitTesting(false)
+                        Text(insertCommas(topNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(topOptionColor).font(.system(size: g.size.height * 0.15)).scaleEffect(topOptionScale).offset(y: topOptionOffset * (g.size.height / 15.0)).padding(.horizontal, g.size.width * 0.15).allowsHitTesting(false)
                         Spacer()
                         Text(insertCommas(centerNumber)).minimumScaleFactor(0.01).lineLimit(1).frame(maxWidth: g.size.width).fixedSize(horizontal: false, vertical: false).foregroundColor(.white).font(.system(size: g.size.height * 0.6)).scaleEffect(scale).offset(y: chosenDirection * (g.size.height / 3.0)).allowsHitTesting(false)
                         Spacer()
-                        Text(insertCommas(bottomNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(bottomOptionColor).font(.system(size: g.size.height * 0.15)).scaleEffect(bottomOptionScale).offset(y: bottomOptionOffset * (g.size.height / 21.0)).padding(.horizontal, g.size.width * 0.15).allowsHitTesting(false)
+                        Text(insertCommas(bottomNumber)).lineLimit(1).minimumScaleFactor(0.01).foregroundColor(bottomOptionColor).font(.system(size: g.size.height * 0.15)).scaleEffect(bottomOptionScale).offset(y: bottomOptionOffset * (g.size.height / 15.0)).padding(.horizontal, g.size.width * 0.15).allowsHitTesting(false)
                         Spacer()
                     }
                 }
