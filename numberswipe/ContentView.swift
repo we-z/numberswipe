@@ -183,7 +183,7 @@ struct ContentView: View {
         } else {
             AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) {}
             if chosenDirection > 0 {
-                withAnimation(.linear(duration: 0.1)) { bottomOptionOffset = -1 }
+                withAnimation(.linear(duration: 0.1)) { bottomOptionOffset = -1; bottomOptionColor = .red }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     withAnimation(.linear(duration: 0.1)) { bottomOptionOffset = 1 }
                 }
@@ -191,7 +191,7 @@ struct ContentView: View {
                     withAnimation(.linear(duration: 0.1)) { bottomOptionOffset = 0 }
                 }
             } else {
-                withAnimation(.linear(duration: 0.1)) { topOptionOffset = -1 }
+                withAnimation(.linear(duration: 0.1)) { topOptionOffset = -1; topOptionColor = .red }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     withAnimation(.linear(duration: 0.1)) { topOptionOffset = 1 }
                 }
@@ -202,7 +202,7 @@ struct ContentView: View {
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 hapticManager.notification(type: .error); isGameOver = true; swiping = false
-                withAnimation(.linear(duration: 0.1)) { chosenDirection = 0; scale = 1 }
+                withAnimation(.linear(duration: 0.1)) { chosenDirection = 0; scale = 1; bottomOptionColor = .gray; topOptionColor = .gray }
             }
         }
         
