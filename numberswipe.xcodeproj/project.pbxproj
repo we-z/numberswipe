@@ -12,6 +12,7 @@
 		7624F0782D0ABD4500A56250 /* products.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 7624F0772D0ABD4500A56250 /* products.storekit */; };
 		7624F07A2D0ABE1300A56250 /* StoreKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7624F0792D0ABE1300A56250 /* StoreKitManager.swift */; };
 		7624F07C2D0B1EBE00A56250 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7624F07B2D0B1EBE00A56250 /* Extensions.swift */; };
+		763BAEE92D15545D00D5605C /* Messages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 763BAEE82D15545D00D5605C /* Messages.framework */; platformFilter = ios; };
 		767D27062D1283BC00D9D9B0 /* X2Gwatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 767D27052D1283BC00D9D9B0 /* X2Gwatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		76994B932C6DBA4F003FE6AB /* numberswipeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76994B922C6DBA4F003FE6AB /* numberswipeApp.swift */; };
 		76994B952C6DBA4F003FE6AB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76994B942C6DBA4F003FE6AB /* ContentView.swift */; };
@@ -80,11 +81,12 @@
 		7624F0772D0ABD4500A56250 /* products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = products.storekit; sourceTree = "<group>"; };
 		7624F0792D0ABE1300A56250 /* StoreKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitManager.swift; sourceTree = "<group>"; };
 		7624F07B2D0B1EBE00A56250 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		763BAEE82D15545D00D5605C /* Messages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Messages.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.1.sdk/System/Library/Frameworks/Messages.framework; sourceTree = DEVELOPER_DIR; };
 		767D27002D1283BC00D9D9B0 /* X2Gwatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = X2Gwatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		767D27052D1283BC00D9D9B0 /* X2Gwatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "X2Gwatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		767D27172D1283BE00D9D9B0 /* X2Gwatch Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "X2Gwatch Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		767D27212D1283BE00D9D9B0 /* X2Gwatch Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "X2Gwatch Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		76994B8F2C6DBA4F003FE6AB /* X2G.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = X2G.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		76994B8F2C6DBA4F003FE6AB /* x2g.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = x2g.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76994B922C6DBA4F003FE6AB /* numberswipeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = numberswipeApp.swift; sourceTree = "<group>"; };
 		76994B942C6DBA4F003FE6AB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		76994B962C6DBA50003FE6AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				763BAEE92D15545D00D5605C /* Messages.framework in Frameworks */,
 				7624F0762D0ABCF400A56250 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,6 +156,7 @@
 		7624F0742D0ABCF400A56250 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				763BAEE82D15545D00D5605C /* Messages.framework */,
 				7624F0752D0ABCF400A56250 /* StoreKit.framework */,
 			);
 			name = Frameworks;
@@ -175,7 +179,7 @@
 		76994B902C6DBA4F003FE6AB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				76994B8F2C6DBA4F003FE6AB /* X2G.app */,
+				76994B8F2C6DBA4F003FE6AB /* x2g.app */,
 				76994BA02C6DBA51003FE6AB /* numberswipeTests.xctest */,
 				76994BAA2C6DBA51003FE6AB /* numberswipeUITests.xctest */,
 				767D27002D1283BC00D9D9B0 /* X2Gwatch.app */,
@@ -317,9 +321,9 @@
 			productReference = 767D27212D1283BE00D9D9B0 /* X2Gwatch Watch AppUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		76994B8E2C6DBA4F003FE6AB /* X2G */ = {
+		76994B8E2C6DBA4F003FE6AB /* x2g */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 76994BB42C6DBA51003FE6AB /* Build configuration list for PBXNativeTarget "X2G" */;
+			buildConfigurationList = 76994BB42C6DBA51003FE6AB /* Build configuration list for PBXNativeTarget "x2g" */;
 			buildPhases = (
 				76994B8B2C6DBA4F003FE6AB /* Sources */,
 				76994B8C2C6DBA4F003FE6AB /* Frameworks */,
@@ -329,9 +333,9 @@
 			);
 			dependencies = (
 			);
-			name = X2G;
+			name = x2g;
 			productName = numberswipe;
-			productReference = 76994B8F2C6DBA4F003FE6AB /* X2G.app */;
+			productReference = 76994B8F2C6DBA4F003FE6AB /* x2g.app */;
 			productType = "com.apple.product-type.application";
 		};
 		76994B9F2C6DBA51003FE6AB /* numberswipeTests */ = {
@@ -420,7 +424,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				76994B8E2C6DBA4F003FE6AB /* X2G */,
+				76994B8E2C6DBA4F003FE6AB /* x2g */,
 				76994B9F2C6DBA51003FE6AB /* numberswipeTests */,
 				76994BA92C6DBA51003FE6AB /* numberswipeUITests */,
 				767D26FF2D1283BC00D9D9B0 /* X2Gwatch */,
@@ -557,12 +561,12 @@
 		};
 		76994BA22C6DBA51003FE6AB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 76994B8E2C6DBA4F003FE6AB /* X2G */;
+			target = 76994B8E2C6DBA4F003FE6AB /* x2g */;
 			targetProxy = 76994BA12C6DBA51003FE6AB /* PBXContainerItemProxy */;
 		};
 		76994BAC2C6DBA51003FE6AB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 76994B8E2C6DBA4F003FE6AB /* X2G */;
+			target = 76994B8E2C6DBA4F003FE6AB /* x2g */;
 			targetProxy = 76994BAB2C6DBA51003FE6AB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -880,7 +884,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
@@ -919,7 +923,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
@@ -1072,7 +1076,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		76994BB42C6DBA51003FE6AB /* Build configuration list for PBXNativeTarget "X2G" */ = {
+		76994BB42C6DBA51003FE6AB /* Build configuration list for PBXNativeTarget "x2g" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				76994BB52C6DBA51003FE6AB /* Debug */,

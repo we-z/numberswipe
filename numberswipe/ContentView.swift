@@ -1,5 +1,6 @@
 import SwiftUI
 import AVFoundation
+import LinkPresentation
 
 struct ContentView: View {
     @State private var currentPower = 1
@@ -20,7 +21,9 @@ struct ContentView: View {
     @State private var bgColor = Color.black
     @StateObject private var storeKitManager = StoreKitManager()
     @Environment(\.scenePhase) var scenePhase
-
+    
+    @State private var showFlexShareSheet: Bool = false
+    
     var body: some View {
         GeometryReader { g in
             ZStack {
@@ -37,8 +40,18 @@ struct ContentView: View {
                             Spacer()
                             Button {
                                 impactLight.impactOccurred()
+                                showFlexShareSheet = true
                             } label: {
                                 Text("Flex").bold().font(.system(size: g.size.height * 0.025)).foregroundColor(.white).padding(g.size.height * 0.01).padding(.horizontal, g.size.height * 0.02).background(.gray.opacity(0.3)).cornerRadius(g.size.height * 0.01).padding()
+                            }
+                            .sheet(isPresented: $showFlexShareSheet) {
+                                if let flexShareImage = renderScoreboardImage(geometry: g) {
+                                    // 3) We present our custom FlexShareView
+                                    FlexShareView(image: flexShareImage)
+                                        .onAppear {
+                                            print("flexShareImage created")
+                                        }
+                                }
                             }
                         }
                         VStack {
@@ -119,6 +132,52 @@ struct ContentView: View {
                 scale = 1
             }
         }
+    }
+    
+    @MainActor
+    func renderScoreboardImage(geometry g: GeometryProxy) -> UIImage? {
+        // We'll replicate the "Best" and "Score" portion
+        let scoreboardView = VStack(spacing: 20) {
+            Text("Best")
+                .font(.system(size: g.size.height * 0.05))
+                .foregroundColor(.gray)
+            
+            ZStack {
+                // Transparent placeholder for consistent sizing
+                Text("0")
+                    .font(.system(size: g.size.height * 0.1))
+                    .foregroundColor(.clear)
+                Text(insertCommas(bestScore))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.01)
+                    .font(.system(size: g.size.height * 0.08))
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 40)
+            }
+            
+            Text("Score")
+                .font(.system(size: g.size.height * 0.05))
+                .foregroundColor(.gray)
+            
+            ZStack {
+                Text("0")
+                    .font(.system(size: g.size.height * 0.1))
+                    .foregroundColor(.clear)
+                Text(insertCommas(centerNumber))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.01)
+                    .font(.system(size: g.size.height * 0.08))
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 40)
+            }
+        }
+        .frame(width: g.size.width, height: g.size.width)  // adjust as desired
+        .background(Color.black)
+        // Use ImageRenderer to create a UIImage
+        let renderer = ImageRenderer(content: scoreboardView)
+        // For iOS 17+ you can set a scale, if needed:
+        // renderer.scale = UIScreen.main.scale
+        return renderer.uiImage
     }
 
     func insertCommas(_ numberString: String) -> String {
@@ -258,3 +317,64 @@ struct ContentView: View {
 }
 
 #Preview { ContentView() }
+
+class FlexActivityItemProvider: NSObject, UIActivityItemSource {
+    let image: UIImage
+    let url: URL
+    
+    init(image: UIImage, url: URL) {
+        self.image = image
+        self.url = url
+    }
+    
+    func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+        // The placeholder is typically either the image or text
+        return image
+    }
+    
+    func activityViewController(_ activityViewController: UIActivityViewController,
+                                itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+        // Return the URL or image depending on the activity
+        // Typically, we return the same object for all activity types
+        return url
+    }
+    
+    func activityViewControllerLinkMetadata(_ activityViewController: UIActivityViewController) -> LPLinkMetadata? {
+        let metadata = LPLinkMetadata()
+        // Set the link
+        metadata.originalURL = url
+        metadata.url = url
+        
+        // Title in the preview
+        metadata.title = "Beat my score!"
+        
+        // The image to show in the preview
+        metadata.imageProvider = NSItemProvider(object: image)
+        
+        return metadata
+    }
+}
+
+// MARK: - A UIViewControllerRepresentable to present the share sheet
+struct FlexShareView: UIViewControllerRepresentable {
+    let image: UIImage
+    
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        // Provide the link you want to share
+        let shareURL = URL(string: "https://apps.apple.com/us/app/x2g/id6739356744")!
+        
+        // Activity items: Our custom item provider
+        let items: [Any] = [FlexActivityItemProvider(image: image, url: shareURL)]
+        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        
+        // Excluded activity types if needed
+        // activityVC.excludedActivityTypes = [.addToReadingList, .airDrop, ...]
+        
+        return activityVC
+    }
+    
+    func updateUIViewController(_ uiViewController: UIActivityViewController,
+                                context: Context) {
+        // no updates needed
+    }
+}
