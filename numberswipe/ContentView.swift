@@ -1,6 +1,7 @@
 import SwiftUI
 import AVFoundation
 import LinkPresentation
+import StoreKit
 
 struct ContentView: View {
     @State private var currentPower = 1
@@ -366,6 +367,14 @@ struct FlexShareView: UIViewControllerRepresentable {
         // Activity items: Our custom item provider
         let items: [Any] = [FlexActivityItemProvider(image: image, url: shareURL)]
         let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        
+        activityVC.completionWithItemsHandler = { _, completed, _, _ in
+            if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+                DispatchQueue.main.async {
+                    SKStoreReviewController.requestReview(in: scene)
+                }
+            }
+        }
         
         // Excluded activity types if needed
         // activityVC.excludedActivityTypes = [.addToReadingList, .airDrop, ...]
